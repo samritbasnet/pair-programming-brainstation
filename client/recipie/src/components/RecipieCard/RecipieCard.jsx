@@ -5,6 +5,8 @@ import './RecipieCard.scss';
 
 function RecipieCard() {
   const [meal, setMeal] = useState(null);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+
   useEffect(() => {
     const fetchRandomRecipe = async () => {
       try {
@@ -17,9 +19,25 @@ function RecipieCard() {
     };
     fetchRandomRecipe();
   }, []);
+
+  const saveRecipe = async () => {
+    if (!meal) return;
+    if (savedRecipes.some(savedMeal => savedMeal.idMeal === meal.idMeal)) {
+      alert("duplicated recipe");
+      return;
+    }
+    try {
+      await axios.post('http://localhost:3003/save', meal, {});
+      setSavedRecipes([...savedRecipes, meal]); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (!meal) {
     return <p>Loading...</p>;
   }
+
   return (
     <div className="meal-container">
       <h1 className="meal-container__title">{meal.strMeal}</h1>
@@ -41,6 +59,10 @@ function RecipieCard() {
       </ul>
 
       <p className="instructions">{meal.strInstructions}</p>
+
+      <button className="save-button" onClick={saveRecipe}>
+        Save Recipe
+      </button>
 
     </div>
   );
