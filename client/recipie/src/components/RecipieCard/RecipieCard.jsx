@@ -22,17 +22,22 @@ function RecipieCard() {
   }
   return (
     <div className="meal-container">
-      <h1 className="meal-title">{meal.strMeal}</h1>
-      <img className="meal-image" src={meal.strMealThumb} alt={meal.strMeal} />
-      <ul className="meal-list">
+      <h1 className="meal-container__title">{meal.strMeal}</h1>
+
+      <img className="meal-container__image" src={meal.strMealThumb} alt={meal.strMeal} />
+
+      <ul className="meal-container__list">
         {Object.keys(meal)
-          .filter((key) => key.startsWith('strMeasure') && meal[key])
+          .filter((key) => key.startsWith('strIngredient') && meal[key])
           .map((key) => (
-            <li key={key} className="meal-item">
+            <li key={key} className="ingredients">
               {meal[key]}
             </li>
           ))}
       </ul>
+
+      <p className="instructions">{meal.strInstructions}</p>
+
     </div>
   );
 }

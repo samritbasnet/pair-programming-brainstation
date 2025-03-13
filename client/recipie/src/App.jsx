@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import React from 'react';
 import RecipieCard from './components/RecipieCard/RecipieCard';
 import './App.scss';
 
