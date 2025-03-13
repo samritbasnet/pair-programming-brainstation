@@ -4,7 +4,9 @@ import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3003;
+
 app.use(cors());
+
 app.get('/random-meal', async (req, res) => {
   try {
     const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php');
