@@ -2,11 +2,17 @@ import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-
+app.use(express.json())
 
 app.use(cors());
 app.get('/random-meal', async (req, res) => {
@@ -21,31 +27,18 @@ app.get('/random-meal', async (req, res) => {
   }
 })
 
-app.post('/save-recipe', (req, res) => {
-  try {
-    const recipe = req.body;
-    
-
-    const savedRecipes = JSON.parse(fs.readFileSync(SAVED_RECIPES_FILE));
-    
-
-    const exists = savedRecipes.some(item => item.idMeal === recipe.idMeal);
-    
-    if (!exists) {
-      
-      savedRecipes.push(recipe);
-            
-      fs.writeFileSync(SAVED_RECIPES_FILE, JSON.stringify(savedRecipes));
-      
-      res.status(201).json({ message: 'Recipe saved successfully' });
-    } else {
-      res.status(200).json({ message: 'Recipe already saved' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to save recipe' });
-  }
+app.post("/save", (req, res) => {
+  const data = req.body; 
+  const filePath = path.join(__dirname, "recipie.json");
+  fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
+      if (err) {
+          console.error("Error writing file:", err);
+          return res.status(500).json({ message: "Error saving data" });
+      }
+      res.status(200).json({ message: "Data saved successfully" });
+  });
 });
+
 
 app.post('')
 app.listen(PORT, () => {
