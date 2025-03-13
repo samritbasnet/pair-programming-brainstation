@@ -29,11 +29,15 @@ function RecipieCard() {
       <ul className="meal-container__list">
         {Object.keys(meal)
           .filter((key) => key.startsWith('strIngredient') && meal[key])
-          .map((key) => (
-            <li key={key} className="ingredients">
-              {meal[key]}
-            </li>
-          ))}
+          .map((key, index) => {
+            const measureKey = `strMeasure${index + 1}`;
+            return (
+              <li key={key} className="ingredients">
+                {meal[measureKey] && meal[measureKey] ? `${meal[measureKey]} ` : ''} 
+                {meal[key]}
+              </li>
+            );
+          })}
       </ul>
 
       <p className="instructions">{meal.strInstructions}</p>

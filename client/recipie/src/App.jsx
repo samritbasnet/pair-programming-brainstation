@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import React from 'react';
-import RecipieCard from './components/RecipieCard/RecipieCard';
+import HomePage from './pages/HomePage/HomePage';
+import SavedPage from './pages/SavedPage/SavedPage';
+
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.scss';
 
 function App() {
   return (
     <>
-      <div>
-        <RecipieCard />
-      </div>
+    <BrowserRouter>
+    <Routes>
+        <Route path='/' element = {<HomePage />}/>
+        <Route path='/saved' element = {<SavedPage/>}/>
+    </Routes>
+    </BrowserRouter>
     </>
   );
 }
