@@ -5,8 +5,11 @@ import './RecipieCard.scss';
 
 function RecipieCard() {
   const [meal, setMeal] = useState(null);
+  const[postmeal,setPostMeal]=useState([]);
+
   useEffect(() => {
     const fetchRandomRecipe = async () => {
+
       try {
         const response = await axios.get('http://localhost:3003/random-meal');
         setMeal(response.data);
@@ -16,7 +19,9 @@ function RecipieCard() {
       }
     };
     fetchRandomRecipe();
-  }, []);
+  },[]);
+ 
+
   if (!meal) {
     return <p>Loading...</p>;
   }
