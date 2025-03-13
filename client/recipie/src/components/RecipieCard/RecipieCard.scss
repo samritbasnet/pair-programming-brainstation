@@ -39,7 +39,13 @@ $shadow-dark: rgba(0, 0, 0, 0.2);
     justify-content: center;
     gap: 0.625rem;
   }
-  &__item{
-    
+  &__item {
+    background: $primary-color;
+    color: white;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
   }
 }
