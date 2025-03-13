@@ -32,5 +32,14 @@ $shadow-dark: rgba(0, 0, 0, 0.2);
     list-style: none;
     padding: 0;
     margin-top: 0.9375rem;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+  }
+  &__item{
+    
   }
 }
