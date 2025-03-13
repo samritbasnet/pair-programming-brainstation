@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './RecipieCard.scss';
 
 function RecipieCard() {
   const [meal, setMeal] = useState(null);
@@ -20,17 +21,19 @@ function RecipieCard() {
     return <p>Loading...</p>;
   }
   return (
-    <>
-      <h1>{meal.strMeal} </h1>
-      <img src={meal.strMealThumb} />
-      <ul>
+    <div className="meal-container">
+      <h1 className="meal-title">{meal.strMeal}</h1>
+      <img className="meal-image" src={meal.strMealThumb} alt={meal.strMeal} />
+      <ul className="meal-list">
         {Object.keys(meal)
           .filter((key) => key.startsWith('strMeasure') && meal[key])
           .map((key) => (
-            <li key={key}>{meal[key]}</li>
+            <li key={key} className="meal-item">
+              {meal[key]}
+            </li>
           ))}
       </ul>
-    </>
+    </div>
   );
 }
 
